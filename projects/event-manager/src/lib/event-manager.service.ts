@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
-import {EventSubscription} from './objects/EventSubscription';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventManagerService {
-  private _eventNameToSubscriptionMap: Map<string, Array<EventSubscription<any>>> = new Map<string, Array<EventSubscription<any>>>();
+  private _eventNameToSubscriptionMap: Map<string, Map<number, Function>> = new Map<string, Map<number, Function>>();
   private _eventSubscriptionIdToEventNameMap: Map<number, string> = new Map<number, string>();
   private _eventSubscriptionId = 0;
 
@@ -17,10 +16,10 @@ export class EventManagerService {
       throw new Error('invalid callbackFunction');
     }
     if (!this._eventNameToSubscriptionMap.has(eventName)) {
-      this._eventNameToSubscriptionMap.set(eventName, []);
+      this._eventNameToSubscriptionMap.set(eventName, new Map<number, Function>());
     }
     const eventSubscriptionId = this._eventSubscriptionId++;
-    this._eventNameToSubscriptionMap.get(eventName).push(new EventSubscription(eventSubscriptionId, callbackFunction));
+    this._eventNameToSubscriptionMap.get(eventName).set(eventSubscriptionId, callbackFunction);
     this._eventSubscriptionIdToEventNameMap.set(eventSubscriptionId, eventName);
     return eventSubscriptionId;
   }
@@ -33,19 +32,8 @@ export class EventManagerService {
       return false;
     }
     const eventName = this._eventSubscriptionIdToEventNameMap.get(eventSubscriptionId);
-    const eventSubscriptionList: Array<EventSubscription<any>> = this._eventNameToSubscriptionMap.get(eventName);
-
-    let idxToRemove: number;
-    for (let i = 0; i < eventSubscriptionList.length; i++) {
-      const eventSubscription: EventSubscription<any> = eventSubscriptionList[i];
-      if (eventSubscription.id === eventSubscriptionId) {
-        idxToRemove = i;
-        break;
-      }
-    }
-
     this._eventSubscriptionIdToEventNameMap.delete(eventSubscriptionId);
-    this._eventNameToSubscriptionMap.get(eventName).splice(idxToRemove);
+    this._eventNameToSubscriptionMap.get(eventName).delete(eventSubscriptionId);
     return true;
   }
 
@@ -58,9 +46,8 @@ export class EventManagerService {
       throw new Error(`No subscribers to ${eventName}`);
     }
 
-    const eventSubscriptionList: Array<EventSubscription<T>> = this._eventNameToSubscriptionMap.get(eventName);
-    for (const eventSubscription of eventSubscriptionList) {
-      eventSubscription.callbackFunction(eventData);
-    }
+    this._eventNameToSubscriptionMap.get(eventName).forEach(function (callbackFunction) {
+      callbackFunction(eventData);
+    });
   }
 }
