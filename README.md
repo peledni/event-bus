@@ -10,8 +10,8 @@ npm i @peledni/event-bus
 
 This library provides an angular service called "EventBusService". Once injected into your service or component, the library provides 3 methods:
 
-* **subscribe<T>(eventName: string, callbackFunction: (eventData: T) => void): number** - subscribes to an event and will call the provided callbackFunction once an event of that name has been emitted. Returns a subscriptionEventId to be used later with *unsubscribe*
-* **unsubscribe(eventSubscriptionId: number): boolean** - Unsubscribes from an event according to the specified subscriptionEventId. Returns a boolean if unsubscribe was successful.
+* **on<T>(eventName: string, callbackFunction: (eventData: T) => void): number** - subscribes to an event and will call the provided callbackFunction once an event of that name has been emitted. Returns a subscriptionEventId to be used later with *unsubscribe*
+* **off(eventSubscriptionId: number): boolean** - Unsubscribes from an event according to the specified subscriptionEventId. Returns a boolean if unsubscribe was successful.
 * **emit<T>(eventName: string, eventData?: T)** - Emits an event, will call subscribers of that event.
 
 ## Example
@@ -19,11 +19,11 @@ This library provides an angular service called "EventBusService". Once injected
 *Assuming EventBusService was injected and saved privately as `_eventBusService`*
 
 ```typescript
-let eventSubscriptionId = this._eventBusService.subscribe('someEvent', function (eventData) {
+let eventSubscriptionId = this._eventBusService.on('someEvent', function (eventData) {
   console.log(`Received event data: ${eventData}`);
 });
 
 this._eventBusService.emit('someEvent', 'hello world');
-let unsubscribeSuccessful = this._eventBusService.unsubscribe(eventSubscriptionId);
+let unsubscribeSuccessful = this._eventBusService.off(eventSubscriptionId);
 console.log(`Unsubscribed? ${unsubscribeSuccessful}`);
 ```

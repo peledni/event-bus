@@ -13,7 +13,7 @@ describe('EventBusService', () => {
   }));
 
   it('should receive emitted event', inject([EventBusService], (service: EventBusService) => {
-    service.subscribe('eventToReceive', function (eventData) {
+    service.on('eventToReceive', function (eventData) {
       console.log('Event data', eventData);
       expect(eventData).toBe('hello', `Expected to receive 'hello'`);
     });
@@ -23,7 +23,7 @@ describe('EventBusService', () => {
   it('should send valid subscription input', inject([EventBusService], (service: EventBusService) => {
     let nullEventError;
     try {
-      service.subscribe(null, function () {
+      service.on(null, function () {
 
       });
     } catch (e) {
@@ -33,7 +33,7 @@ describe('EventBusService', () => {
 
     let nullCallbackFunctionError;
     try {
-      service.subscribe('nullCallbackFunctionEvent', null);
+      service.on('nullCallbackFunctionEvent', null);
     } catch (e) {
       nullCallbackFunctionError = e;
     }
@@ -41,10 +41,10 @@ describe('EventBusService', () => {
   }));
 
 
-  it('should be able to unsubscribe', inject([EventBusService], (service: EventBusService) => {
-    const eventSubscriptionId = service.subscribe('eventToUnsubscribeFrom', function () {
+  it('should be able to off', inject([EventBusService], (service: EventBusService) => {
+    const eventSubscriptionId = service.on('eventToUnsubscribeFrom', function () {
     });
-    expect(service.unsubscribe(eventSubscriptionId)).toBeTruthy('Expected unsubscribe result to be true');
+    expect(service.off(eventSubscriptionId)).toBeTruthy('Expected off result to be true');
   }));
 
 

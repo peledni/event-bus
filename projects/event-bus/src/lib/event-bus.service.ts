@@ -8,7 +8,7 @@ export class EventBusService {
   private _eventSubscriptionIdToEventNameMap: Map<number, string> = new Map<number, string>();
   private _eventSubscriptionId = 0;
 
-  public subscribe<T>(eventName: string, callbackFunction: (eventData: T) => void): number {
+  public on<T>(eventName: string, callbackFunction: (eventData: T) => void): number {
     if (!eventName || eventName.trim() === '') {
       throw new Error('invalid eventName');
     }
@@ -24,7 +24,7 @@ export class EventBusService {
     return eventSubscriptionId;
   }
 
-  public unsubscribe(eventSubscriptionId: number): boolean {
+  public off(eventSubscriptionId: number): boolean {
     if (eventSubscriptionId == null) {
       throw new Error('invalid eventSubscriptionId');
     }
