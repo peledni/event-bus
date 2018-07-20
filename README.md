@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/%40peledni%2Fevent-manager.svg)](https://badge.fury.io/js/%40peledni%2Fevent-manager)
+
 # @peledni/event-manager
 A typescript angular library that lets you emit and subscribe to events from anywhere in your code base.
 
