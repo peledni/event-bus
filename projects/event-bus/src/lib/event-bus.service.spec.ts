@@ -12,16 +12,6 @@ describe('EventBusService', () => {
     expect(service).toBeTruthy();
   }));
 
-  it('should not emit before subscribing', inject([EventBusService], (service: EventBusService) => {
-    let err = null;
-    try {
-      service.emit('unsubscribedEvent', {myData: 'isBad'});
-    } catch (e) {
-      err = e;
-    }
-    expect(err != null).toBeTruthy();
-  }));
-
   it('should receive emitted event', inject([EventBusService], (service: EventBusService) => {
     service.subscribe('eventToReceive', function (eventData) {
       console.log('Event data', eventData);
