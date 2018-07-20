@@ -3,38 +3,38 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "event-manager": {
-      "root": "projects/event-manager",
-      "sourceRoot": "projects/event-manager/src",
+    "event-bus": {
+      "root": "projects/event-bus",
+      "sourceRoot": "projects/event-bus/src",
       "projectType": "library",
       "prefix": "peledni",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/event-manager/tsconfig.lib.json",
-            "project": "projects/event-manager/ng-package.json"
+            "tsConfig": "projects/event-bus/tsconfig.lib.json",
+            "project": "projects/event-bus/ng-package.json"
           },
           "configurations": {
             "production": {
-              "project": "projects/event-manager/ng-package.prod.json"
+              "project": "projects/event-bus/ng-package.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/event-manager/src/test.ts",
-            "tsConfig": "projects/event-manager/tsconfig.spec.json",
-            "karmaConfig": "projects/event-manager/karma.conf.js"
+            "main": "projects/event-bus/src/test.ts",
+            "tsConfig": "projects/event-bus/tsconfig.spec.json",
+            "karmaConfig": "projects/event-bus/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/event-manager/tsconfig.lib.json",
-              "projects/event-manager/tsconfig.spec.json"
+              "projects/event-bus/tsconfig.lib.json",
+              "projects/event-bus/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -44,5 +44,5 @@
       }
     }
   },
-  "defaultProject": "event-manager"
+  "defaultProject": "event-bus"
 }

@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class EventManagerService {
+export class EventBusService {
   private _eventNameToSubscriptionMap: Map<string, Map<number, Function>> = new Map<string, Map<number, Function>>();
   private _eventSubscriptionIdToEventNameMap: Map<number, string> = new Map<number, string>();
   private _eventSubscriptionId = 0;

@@ -1,5 +1,5 @@
 {
-  "name": "event-manager-project",
+  "name": "event-bus-project",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

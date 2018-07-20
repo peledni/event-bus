@@ -17,11 +17,11 @@
       "dom"
     ],
     "paths": {
-      "event-manager": [
-        "dist/event-manager"
+      "event-bus": [
+        "dist/event-bus"
       ],
-      "event-manager/*": [
-        "dist/event-manager/*"
+      "event-bus/*": [
+        "dist/event-bus/*"
       ]
     }
   }

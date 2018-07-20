@@ -1,18 +1,18 @@
 import {TestBed, inject} from '@angular/core/testing';
-import {EventManagerService} from './event-manager.service';
+import {EventBusService} from './event-bus.service';
 
-describe('EventManagerService', () => {
+describe('EventBusService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [EventManagerService]
+      providers: [EventBusService]
     });
   });
 
-  it('should be created', inject([EventManagerService], (service: EventManagerService) => {
+  it('should be created', inject([EventBusService], (service: EventBusService) => {
     expect(service).toBeTruthy();
   }));
 
-  it('should not emit before subscribing', inject([EventManagerService], (service: EventManagerService) => {
+  it('should not emit before subscribing', inject([EventBusService], (service: EventBusService) => {
     let err = null;
     try {
       service.emit('unsubscribedEvent', {myData: 'isBad'});
@@ -22,7 +22,7 @@ describe('EventManagerService', () => {
     expect(err != null).toBeTruthy();
   }));
 
-  it('should receive emitted event', inject([EventManagerService], (service: EventManagerService) => {
+  it('should receive emitted event', inject([EventBusService], (service: EventBusService) => {
     service.subscribe('eventToReceive', function (eventData) {
       console.log('Event data', eventData);
       expect(eventData).toBe('hello', `Expected to receive 'hello'`);
@@ -30,7 +30,7 @@ describe('EventManagerService', () => {
     service.emit('eventToReceive', 'hello');
   }));
 
-  it('should send valid subscription input', inject([EventManagerService], (service: EventManagerService) => {
+  it('should send valid subscription input', inject([EventBusService], (service: EventBusService) => {
     let nullEventError;
     try {
       service.subscribe(null, function () {
@@ -51,7 +51,7 @@ describe('EventManagerService', () => {
   }));
 
 
-  it('should be able to unsubscribe', inject([EventManagerService], (service: EventManagerService) => {
+  it('should be able to unsubscribe', inject([EventBusService], (service: EventBusService) => {
     const eventSubscriptionId = service.subscribe('eventToUnsubscribeFrom', function () {
     });
     expect(service.unsubscribe(eventSubscriptionId)).toBeTruthy('Expected unsubscribe result to be true');
