@@ -43,7 +43,7 @@ export class EventBusService {
     }
 
     if (!this._eventNameToSubscriptionMap.has(eventName)) {
-      throw new Error(`No subscribers to ${eventName}`);
+      return;
     }
 
     this._eventNameToSubscriptionMap.get(eventName).forEach(function (callbackFunction) {
