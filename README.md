@@ -2,7 +2,7 @@
 A typescript angular library that lets you emit and subscribe to events from anywhere in your code base.
 
 ## To install
-npm i @peledni/event-manager@1.0.2
+npm i @peledni/event-manager
 
 ## Usage
 
